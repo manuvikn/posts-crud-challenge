@@ -1,0 +1,30 @@
+@font-face {
+    font-family: gabarito;
+    src: url(/assets/fonts/gabarito.ttf);
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+        top: -50vh;
+    }
+    30% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        top: 0px;
+    }
+}
+
+:host ::ng-deep {
+
+    font-family: gabarito;
+
+    .fade-in-animation {
+
+        animation: fadeInAnimation 1.4s ease;
+
+    }
+
+}

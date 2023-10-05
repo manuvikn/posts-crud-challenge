@@ -1,0 +1,55 @@
+:host {
+
+    min-height: 100vh;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    color: var(--white);
+    position: relative;
+    
+    .dashboard {
+
+        width: 90%;
+        margin: 3em auto;
+        border-radius: var(--border-radius);
+        background-image: linear-gradient( to right, var( --dashboard-background-color-primary ), var( --dashboard-background-color-secondary ) );
+        -webkit-box-shadow: 6px 6px 20px 3px rgba(0,0,0,0.75);
+        -moz-box-shadow: 6px 6px 20px 3px rgba(0,0,0,0.75);
+        box-shadow: 6px 6px 20px 3px rgba(0,0,0,0.75);
+        display: flex;
+        row-gap: 1em;
+        column-gap: 1em;
+        overflow: hidden;
+        position: relative;
+        top: 0px;
+        left: 0px;
+
+        .dashboard-body {
+
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 2em;
+
+            h1 {
+
+                margin: 0px;
+                text-align: center;
+            
+            }
+            
+            .dashboard-body-content {
+    
+                flex-grow: 1;
+                background: rgba(0, 0, 0, 0.3);
+                border-radius: var(--border-radius);
+                margin: 1em 0px;
+                padding: 2em;
+    
+            }
+
+        }
+
+    }
+
+}
