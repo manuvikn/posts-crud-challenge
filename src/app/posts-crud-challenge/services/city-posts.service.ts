@@ -52,4 +52,16 @@ export class CityPostsService {
 
     }
 
+    updateCityPost( cityPost: CityPostInterface, id: number ): Observable<void> {
+
+        return this.http.put<void>( `${environment.API_URL}posts/${id}`, cityPost)
+        .pipe(
+            catchError(_err => {
+                this.router.navigate(['']);
+                return of();
+            })
+        );
+
+    }
+
 }

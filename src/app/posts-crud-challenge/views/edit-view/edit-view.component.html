@@ -1,0 +1,38 @@
+<form (ngSubmit)="submitForm($event)" class="edit-container fade-in-animation">
+
+    <ng-container *ngIf="cityPostForm" [formGroup]="cityPostForm">
+
+        <div class="title-container">
+
+            <input type="text" class="custom-input input-title" formControlName="title" placeholder="Title">
+            <button class="pcc-button" type="submit" [disabled]="cityPostForm.invalid"><i class="bi bi-check-circle"></i> Done</button>
+
+        </div>
+
+        <div class="img-banner">
+
+            <div class="frame-picture-container">
+                <pcc-frame-picture [image_url]="cityPost?.image_url"></pcc-frame-picture>
+                <input type="text" class="custom-input" formControlName="image_url" placeholder="Image URL">
+            </div>
+            <textarea class="custom-input input-content" formControlName="content"
+                placeholder="Post content"></textarea>
+
+        </div>
+
+        <div class="lat-long-container">
+            <input type="text" class="custom-input" formControlName="lat" placeholder="Latitude">
+            <input type="text" class="custom-input" formControlName="long" placeholder="Longitude">
+        </div>
+
+    </ng-container>
+
+    <section class="map-section">
+
+        <div class="map-parent">
+            <div #mapContainer class="map-container"></div>
+        </div>
+
+    </section>
+
+</form>

@@ -1,0 +1,30 @@
+::ng-deep {
+    
+    .pcc-button {
+    
+        all: unset;
+        padding: 1em 3em;
+        background-color: var(--background-color);
+        border-radius: 50px;
+        -webkit-box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.4);
+        -moz-box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.4);
+        box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.4); 
+        transition: padding 0.2s;
+    
+        &:hover {
+    
+            cursor: pointer;                                
+            filter: brightness(1.2);
+    
+        }
+    
+        &:disabled {
+    
+            cursor: default;
+            filter: brightness(0.8);
+            
+        }
+    
+    }
+
+}

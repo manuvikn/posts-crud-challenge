@@ -4,13 +4,15 @@ import { CityPostsService } from "../../services/city-posts.service";
 import { BehaviorSubject, Subscription, filter, take } from "rxjs";
 import { CityPost } from "../../models/city-post";
 import { Map, icon, map, marker, tileLayer } from "leaflet"
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { CityPostInterface } from "../../interfaces/city-post.interface";
 
 @Component({
-    selector: 'pcc-details-view',
-    templateUrl: './details-view.component.html',
-    styleUrls: ['./details-view.component.scss']
+    selector: 'pcc-edit-view',
+    templateUrl: './edit-view.component.html',
+    styleUrls: ['./edit-view.component.scss']
 })
-export class DetailsViewComponent implements OnInit, AfterViewInit, OnDestroy {
+export class EditViewComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('mapContainer') mapContainer: ElementRef | undefined;
 
@@ -19,12 +21,16 @@ export class DetailsViewComponent implements OnInit, AfterViewInit, OnDestroy {
 
     cityPostSubscription: Subscription | undefined;
     cityDataLoadedSubscription: Subscription | undefined;
+    updateCitySubscription: Subscription | undefined;
     
     cityDataLoaded$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+    cityPostForm: FormGroup | undefined;
+
     constructor(private route: ActivatedRoute,
-        private router: Router,
-        private cityPostsService: CityPostsService) { }
+                private router: Router,
+                private cityPostsService: CityPostsService,
+                private fb: FormBuilder) { }
 
     ngOnInit(): void {
 
@@ -48,6 +54,7 @@ export class DetailsViewComponent implements OnInit, AfterViewInit, OnDestroy {
         
         this.cityPostSubscription?.unsubscribe();
         this.cityDataLoadedSubscription?.unsubscribe();
+        this.updateCitySubscription?.unsubscribe();
 
     }
 
@@ -65,7 +72,6 @@ export class DetailsViewComponent implements OnInit, AfterViewInit, OnDestroy {
 
         }
 
-
     }
 
     getCityPostById(id: number): void {
@@ -76,8 +82,48 @@ export class DetailsViewComponent implements OnInit, AfterViewInit, OnDestroy {
                 if (!cityPost) this.router.navigate(['']);
                 else {
                     this.cityPost = cityPost;
-                    this.cityDataLoaded$.next(true);
+                    this.initForm();
                 }
+            });
+
+    }
+
+    initForm(): void {
+
+        if (!this.cityPost) return;
+
+        this.cityPostForm = this.fb.group({
+
+            'title': this.fb.control(this.cityPost.title, [Validators.required]),
+            'content': this.fb.control(this.cityPost.content, [Validators.required]),
+            'image_url': this.fb.control(this.cityPost.image_url, [Validators.required]),
+            'lat': this.fb.control(this.cityPost.lat, [Validators.required, Validators.pattern(/^[0-9\+\-\.]+$/)]),
+            'long': this.fb.control(this.cityPost.long, [Validators.required, Validators.pattern(/^[0-9\+\-\.]+$/)])
+
+        });
+
+        this.cityDataLoaded$.next(true);
+
+    }
+
+    submitForm(_e: SubmitEvent): void {
+
+        if (!this.cityPostForm || !this.cityPost) return;
+
+        const { title, content, image_url, lat, long } = this.cityPostForm.value;
+        const updatedPost: any = {
+            title,
+            content,
+            image_url,
+            lat: String(lat),
+            long: String(long)
+        };
+
+        this.updateCitySubscription =
+        this.cityPostsService.updateCityPost( updatedPost, this.cityPost.id )
+            .subscribe(_e => {
+                if (this.cityPost)
+                this.router.navigate( ['details', this.cityPost.id] );
             });
 
     }
@@ -110,5 +156,6 @@ export class DetailsViewComponent implements OnInit, AfterViewInit, OnDestroy {
         marker([this.cityPost.lat, this.cityPost.long], {icon: greenIcon}).addTo(this.map);
 
     }
+
 
 }

@@ -9,12 +9,17 @@ import { TableViewComponent } from "./views/table-view/table-view.component";
 import { AboutViewComponent } from "./views/about-view/about-view.component";
 import { CityPostsService } from "./services/city-posts.service";
 import { DetailsViewComponent } from "./views/details-view/details-view.component";
+import { FramePictureComponent } from "./components/frame-picture/frame-picture.component";
+import { EditViewComponent } from "./views/edit-view/edit-view.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     imports: [
         CommonModule,
         PostsCrudChallengeRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [
         PostsCrudChallengeComponent,
@@ -22,7 +27,9 @@ import { DetailsViewComponent } from "./views/details-view/details-view.componen
         NavbarComponent,
         TableViewComponent,
         AboutViewComponent,
-        DetailsViewComponent
+        DetailsViewComponent,
+        FramePictureComponent,
+        EditViewComponent
     ],
     exports: [],
     providers: [

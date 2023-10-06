@@ -1,13 +1,13 @@
 export class CityPost {
 
-    id: number | undefined;
-    content: string | undefined;
-    title: string | undefined;
-    image_url: string | undefined
-    lat: number | undefined;
-    long: number | undefined;
-    created_at: Date | undefined;
-    updated_at: Date | undefined;
+    id: number = 0;
+    content: string = '';
+    title: string = '';
+    image_url: string = '';
+    lat: number = 0;
+    long: number = 0;
+    created_at: Date = new Date();
+    updated_at: Date = new Date();
 
     constructor(id: number, title: string, content: string, image_url: string, lat: number, long: number, created_at: Date, updated_at: Date) {
 

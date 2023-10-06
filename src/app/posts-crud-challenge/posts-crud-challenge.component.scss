@@ -3,6 +3,7 @@
     src: url(/assets/fonts/gabarito.ttf);
 }
 
+// Fade in Animation
 @keyframes fadeInAnimation {
     0% {
         opacity: 0;
@@ -17,6 +18,7 @@
     }
 }
 
+// General Styles
 :host ::ng-deep {
 
     font-family: gabarito;
