@@ -1,0 +1,26 @@
+<div class="details-container fade-in-animation">
+
+    <ng-container *ngIf="cityPost">
+
+        <h1 class="title">{{ cityPost.title }}</h1>
+    
+        <div class="img-banner">
+            <div class="frame-container">
+                <div class="frame"></div>
+                <img [src]="cityPost.image_url" alt="city picture">
+            </div>
+            <p class="content">{{ cityPost.content }}</p>
+        </div>
+
+    </ng-container>
+
+    <section class="map-section">
+
+        <h2>Lost? Take a look at the map</h2>
+        <div class="map-parent">
+            <div #mapContainer class="map-container"></div>
+        </div>
+
+    </section>
+
+</div>

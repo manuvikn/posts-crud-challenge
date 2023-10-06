@@ -3,6 +3,7 @@ import { PostsCrudChallengeComponent } from "./posts-crud-challenge.component";
 import { NgModule } from "@angular/core";
 import { TableViewComponent } from "./views/table-view/table-view.component";
 import { AboutViewComponent } from "./views/about-view/about-view.component";
+import { DetailsViewComponent } from "./views/details-view/details-view.component";
 
 const ROUTES: Routes = [
     {
@@ -16,6 +17,10 @@ const ROUTES: Routes = [
             {
                 path: 'about',
                 component: AboutViewComponent
+            },
+            {
+                path: 'details/:id',
+                component: DetailsViewComponent
             },
             {
                 path: '**',

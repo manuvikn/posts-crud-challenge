@@ -8,6 +8,7 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { TableViewComponent } from "./views/table-view/table-view.component";
 import { AboutViewComponent } from "./views/about-view/about-view.component";
 import { CityPostsService } from "./services/city-posts.service";
+import { DetailsViewComponent } from "./views/details-view/details-view.component";
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { CityPostsService } from "./services/city-posts.service";
         DashboardComponent,
         NavbarComponent,
         TableViewComponent,
-        AboutViewComponent
+        AboutViewComponent,
+        DetailsViewComponent
     ],
     exports: [],
     providers: [

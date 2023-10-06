@@ -1,0 +1,37 @@
+::ng-deep {
+
+    div:where(.swal2-container).swal2-center>.swal2-popup {
+
+        background-color: var(--background-color);
+        border-radius: var(--border-radius);
+        color: var(--white);
+        font-family: gabarito;
+        -webkit-box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.4);
+        -moz-box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.4);
+        box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.4);
+
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+        
+        font-family: gabarito;
+        background-color: var(--blue) !important;
+        border-radius: 50px !important;
+        -webkit-box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.4);
+        -moz-box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.4);
+        box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.4);
+
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
+        
+        font-family: gabarito;
+        background-color: var(--red) !important;
+        border-radius: 50px !important;
+        -webkit-box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.4);
+        -moz-box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.4);
+        box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.4);
+
+    }
+
+}

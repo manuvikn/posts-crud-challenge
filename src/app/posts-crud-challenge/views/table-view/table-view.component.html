@@ -1,14 +1,19 @@
-<table>
-    <tr>
+<table class="data-table fade-in-animation">
+    <tr class="table-header">
         <th>ID</th>
-        <th>Title</th>
+        <th>City</th>
         <th>Creation Date</th>
         <th>Update Date</th>
+        <th>Actions</th>
     </tr>
-    <tr *ngFor="let cityPost of arrCityPosts; trackBy: trackByFn">
+    <tr class="table-row" *ngFor="let cityPost of arrCityPosts; trackBy: trackByFn">
         <td>{{ cityPost.id }}</td>
         <td>{{ cityPost.title }}</td>
-        <td>{{ cityPost.created_at | date }}</td>
-        <td>{{ cityPost.updated_at | date }}</td>
+        <td>{{ cityPost.created_at | date: 'medium' }}</td>
+        <td>{{ cityPost.updated_at | date: 'medium' }}</td>
+        <td class="actions-cell">
+            <a class="details-link" [routerLink]="['/details', cityPost.id]">Details</a>
+            <a class="delete-link" (click)="alertToDelete( cityPost.id )">Delete</a>
+        </td>
     </tr>
 </table>

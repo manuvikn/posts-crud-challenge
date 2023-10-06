@@ -1,12 +1,14 @@
-:host ::ng-deep {
+::ng-deep body {
 
     --border-radius: 25px;
 
     // Colors
     --background-color: #173744;
-    --dashboard-background-color-primary: #0e2d38;
+    --dashboard-background-color-primary: #0e2b35;
     --dashboard-background-color-secondary: #2b2a2b;
     --black: #111111;
     --white: #ffffff;
+    --red: #b90000;
+    --blue: #35829c;
 
 }
