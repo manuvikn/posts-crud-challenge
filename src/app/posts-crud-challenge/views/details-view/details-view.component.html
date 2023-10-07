@@ -5,7 +5,7 @@
         <div class="title-container">
 
             <h1 class="title">{{ cityPost.title }}</h1>
-            <button class="pcc-button" [routerLink]="['/edit', cityPost.id]"><i class="bi bi-brush"></i> Edit</button>
+            <button class="pcc-button" [routerLink]="['../../edit', cityPost.id]" [relativeTo]="route"><i class="bi bi-brush"></i> Edit</button>
 
         </div>
     

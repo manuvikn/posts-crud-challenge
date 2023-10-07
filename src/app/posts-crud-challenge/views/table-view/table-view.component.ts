@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 import { CityPostsService } from "../../services/city-posts.service";
 import { CityPost } from "../../models/city-post";
 import Swal from 'sweetalert2'
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'pcc-table-view',
@@ -16,7 +17,8 @@ export class TableViewComponent implements OnInit, OnDestroy {
     cityPostsSubscription: Subscription | undefined;
     deleteCityPostSubscription: Subscription | undefined;
 
-    constructor(private cityPostsService: CityPostsService) { }
+    constructor(private cityPostsService: CityPostsService,
+                protected route: ActivatedRoute) { }
 
     ngOnInit(): void {
 

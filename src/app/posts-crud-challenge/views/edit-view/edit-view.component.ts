@@ -3,9 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { CityPostsService } from "../../services/city-posts.service";
 import { BehaviorSubject, Subscription, filter, take } from "rxjs";
 import { CityPost } from "../../models/city-post";
-import { Map, icon, map, marker, tileLayer } from "leaflet"
+import { Map, Marker, icon, map, marker, tileLayer } from "leaflet"
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { CityPostInterface } from "../../interfaces/city-post.interface";
 
 @Component({
     selector: 'pcc-edit-view',
@@ -17,44 +16,59 @@ export class EditViewComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('mapContainer') mapContainer: ElementRef | undefined;
 
     map: Map | undefined;
+    marker: Marker | undefined;
     cityPost: CityPost | undefined;
+    isEdit: boolean = false;
 
     cityPostSubscription: Subscription | undefined;
     cityDataLoadedSubscription: Subscription | undefined;
-    updateCitySubscription: Subscription | undefined;
-    
+    updateCreateCitySubscription: Subscription | undefined;
+
     cityDataLoaded$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     cityPostForm: FormGroup | undefined;
 
     constructor(private route: ActivatedRoute,
-                private router: Router,
-                private cityPostsService: CityPostsService,
-                private fb: FormBuilder) { }
+        private router: Router,
+        private cityPostsService: CityPostsService,
+        private fb: FormBuilder) { }
 
     ngOnInit(): void {
 
-        this.getRouteParam();
+        this.initEditComponent();
 
     }
 
     ngAfterViewInit(): void {
 
-        this.cityDataLoadedSubscription = 
-        this.cityDataLoaded$.asObservable()
-            .pipe(
-                filter(dataLoaded => dataLoaded),
-                take(1)
-            )
-            .subscribe(_e => this.init2dMap())
+        this.cityDataLoadedSubscription =
+            this.cityDataLoaded$.asObservable()
+                .pipe(
+                    filter(dataLoaded => dataLoaded),
+                    take(1)
+                )
+                .subscribe(_e => this.init2dMap())
 
     }
 
     ngOnDestroy(): void {
-        
+
         this.cityPostSubscription?.unsubscribe();
         this.cityDataLoadedSubscription?.unsubscribe();
-        this.updateCitySubscription?.unsubscribe();
+        this.updateCreateCitySubscription?.unsubscribe();
+
+    }
+
+    initEditComponent(): void {
+
+        this.isEdit = this.route.snapshot.data['edit'];
+        if (this.isEdit) this.getRouteParam();
+        else {
+
+            this.cityPost = new CityPost(0, '', '', '', 0, 0, new Date(), new Date());
+            this.initForm();
+
+        }
 
     }
 
@@ -68,7 +82,7 @@ export class EditViewComponent implements OnInit, AfterViewInit, OnDestroy {
 
         } else {
 
-            this.router.navigate(['']);
+            this.router.navigate(['table'], {relativeTo: this.route});
 
         }
 
@@ -77,14 +91,14 @@ export class EditViewComponent implements OnInit, AfterViewInit, OnDestroy {
     getCityPostById(id: number): void {
 
         this.cityPostSubscription =
-        this.cityPostsService.getCityPostById(id)
-            .subscribe(cityPost => {
-                if (!cityPost) this.router.navigate(['']);
-                else {
-                    this.cityPost = cityPost;
-                    this.initForm();
-                }
-            });
+            this.cityPostsService.getCityPostById(id)
+                .subscribe(cityPost => {
+                    if (!cityPost) this.router.navigate(['table'], {relativeTo: this.route});
+                    else {
+                        this.cityPost = cityPost;
+                        this.initForm();
+                    }
+                });
 
     }
 
@@ -111,7 +125,7 @@ export class EditViewComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.cityPostForm || !this.cityPost) return;
 
         const { title, content, image_url, lat, long } = this.cityPostForm.value;
-        const updatedPost: any = {
+        const cityPostBody: any = {
             title,
             content,
             image_url,
@@ -119,18 +133,24 @@ export class EditViewComponent implements OnInit, AfterViewInit, OnDestroy {
             long: String(long)
         };
 
-        this.updateCitySubscription =
-        this.cityPostsService.updateCityPost( updatedPost, this.cityPost.id )
-            .subscribe(_e => {
-                if (this.cityPost)
-                this.router.navigate( ['details', this.cityPost.id] );
-            });
+        this.updateCreateCitySubscription = this.isEdit ?
+            this.cityPostsService.updateCityPost(cityPostBody, this.cityPost.id)
+                .subscribe(_e => {
+                    if (this.cityPost)
+                        this.router.navigate(['../../details', this.cityPost.id], {relativeTo: this.route});
+                }) :
+
+            this.cityPostsService.createCityPost(cityPostBody)
+                .subscribe(({ id }) => {
+                    if (id)
+                        this.router.navigate(['../details', id], {relativeTo: this.route});
+                });
 
     }
 
     init2dMap(): void {
 
-        if (!this.mapContainer || !this.cityPost || !this.cityPost.lat || !this.cityPost.long ) return;
+        if (!this.mapContainer || !this.cityPost || this.cityPost.lat == undefined || this.cityPost.long == undefined) return;
 
         this.map = map(this.mapContainer.nativeElement, {
             center: [this.cityPost.lat, this.cityPost.long],
@@ -146,16 +166,32 @@ export class EditViewComponent implements OnInit, AfterViewInit, OnDestroy {
         const greenIcon = icon({
             iconUrl: 'assets/img/leaf-green.png',
             shadowUrl: 'assets/img/leaf-shadow.png',
-            iconSize:     [38, 95],
-            shadowSize:   [50, 64],
-            iconAnchor:   [22, 94],
-            shadowAnchor: [4, 62], 
-            popupAnchor:  [-3, -76]
+            iconSize: [38, 95],
+            shadowSize: [50, 64],
+            iconAnchor: [22, 94],
+            shadowAnchor: [4, 62],
+            popupAnchor: [-3, -76]
         });
 
-        marker([this.cityPost.lat, this.cityPost.long], {icon: greenIcon}).addTo(this.map);
+        this.marker = marker([this.cityPost.lat, this.cityPost.long], { icon: greenIcon }).addTo(this.map);
 
     }
 
+    changeMapPosition(): void {
+
+        if (!this.cityPost || !this.cityPostForm || this.cityPostForm.get( 'lat' )?.invalid || this.cityPostForm.get( 'long' )?.invalid) return;
+
+        this.map?.setView([this.cityPostForm.get('lat')?.value, this.cityPostForm.get('long')?.value]);
+        this.marker?.setLatLng([this.cityPostForm.get('lat')?.value, this.cityPostForm.get('long')?.value]);
+
+    }
+
+    previewImage(): void {
+
+        if (!this.cityPost || !this.cityPostForm || this.cityPostForm.get( 'image_url' )?.invalid) return;
+
+        this.cityPost.image_url = this.cityPostForm.get( 'image_url' )?.value;
+
+    }
 
 }

@@ -13,7 +13,7 @@
 
             <div class="frame-picture-container">
                 <pcc-frame-picture [image_url]="cityPost?.image_url"></pcc-frame-picture>
-                <input type="text" class="custom-input" formControlName="image_url" placeholder="Image URL">
+                <input (blur)="previewImage()" type="text" class="custom-input" formControlName="image_url" placeholder="Image URL">
             </div>
             <textarea class="custom-input input-content" formControlName="content"
                 placeholder="Post content"></textarea>
@@ -21,8 +21,8 @@
         </div>
 
         <div class="lat-long-container">
-            <input type="text" class="custom-input" formControlName="lat" placeholder="Latitude">
-            <input type="text" class="custom-input" formControlName="long" placeholder="Longitude">
+            <input (blur)="changeMapPosition()" type="text" class="custom-input" formControlName="lat" placeholder="Latitude">
+            <input (blur)="changeMapPosition()" type="text" class="custom-input" formControlName="long" placeholder="Longitude">
         </div>
 
     </ng-container>

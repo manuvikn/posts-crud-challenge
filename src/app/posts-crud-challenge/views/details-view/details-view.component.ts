@@ -22,7 +22,7 @@ export class DetailsViewComponent implements OnInit, AfterViewInit, OnDestroy {
     
     cityDataLoaded$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    constructor(private route: ActivatedRoute,
+    constructor(protected route: ActivatedRoute,
         private router: Router,
         private cityPostsService: CityPostsService) { }
 
@@ -61,7 +61,7 @@ export class DetailsViewComponent implements OnInit, AfterViewInit, OnDestroy {
 
         } else {
 
-            this.router.navigate(['']);
+            this.router.navigate(['table'], {relativeTo: this.route});
 
         }
 
@@ -73,7 +73,7 @@ export class DetailsViewComponent implements OnInit, AfterViewInit, OnDestroy {
         this.cityPostSubscription =
         this.cityPostsService.getCityPostById(id)
             .subscribe(cityPost => {
-                if (!cityPost) this.router.navigate(['']);
+                if (!cityPost) this.router.navigate(['table'], {relativeTo: this.route});
                 else {
                     this.cityPost = cityPost;
                     this.cityDataLoaded$.next(true);

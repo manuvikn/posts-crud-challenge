@@ -25,7 +25,17 @@ const ROUTES: Routes = [
             },
             {
                 path: 'edit/:id',
-                component: EditViewComponent
+                component: EditViewComponent,
+                data: {
+                    edit: true
+                }
+            },
+            {
+                path: 'create',
+                component: EditViewComponent,
+                data: {
+                    edit: false
+                }
             },
             {
                 path: '**',

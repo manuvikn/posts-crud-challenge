@@ -1,6 +1,7 @@
+// Gabarito Font
 @font-face {
     font-family: gabarito;
-    src: url(/assets/fonts/gabarito.ttf);
+    src: url(/assets/css/fonts/gabarito.ttf);
 }
 
 // Fade in Animation
@@ -26,7 +27,7 @@
     .fade-in-animation {
 
         animation: fadeInAnimation ease;
-        animation-duration: 1.4s;
+        animation-duration: 1.2s;
 
     }
 

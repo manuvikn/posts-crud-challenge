@@ -12,7 +12,7 @@
         <td>{{ cityPost.created_at | date: 'medium' }}</td>
         <td>{{ cityPost.updated_at | date: 'medium' }}</td>
         <td class="actions-cell">
-            <a class="details-link" [routerLink]="['/details', cityPost.id]">Details</a>
+            <a class="details-link" [routerLink]="['../details', cityPost.id]" [relativeTo]="route">Details</a>
             <a class="delete-link" (click)="alertToDelete( cityPost.id )">Delete</a>
         </td>
     </tr>
