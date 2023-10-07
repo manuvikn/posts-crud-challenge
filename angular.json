@@ -17,7 +17,7 @@
 				"build": {
 					"builder": "ngx-build-plus:browser",
 					"options": {
-						"outputPath": "dist/posts-crud-challenge",
+						"outputPath": "dist/city-sights",
 						"index": "src/index.html",
 						"main": "src/main.ts",
 						"polyfills": [
