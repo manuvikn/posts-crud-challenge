@@ -1,5 +1,11 @@
-a {
-
-    color: var(--white);
+.fade-in-animation {
+    
+    animation-duration: 0.5s;
+    
+    a {
+    
+        color: var(--white);
+    
+    }
 
 }

@@ -1,7 +1,9 @@
-<div class="search-container">
-    <input (input)="filterCityPostsByName()" [(ngModel)]="filterCityPostValue" type="text" placeholder="Search by city name" class="custom-input">
-</div>
 <table class="data-table fade-in-animation">
+
+    <div class="search-container">
+        <input (input)="filterCityPostsByName()" [(ngModel)]="filterCityPostValue" type="text" placeholder="Search by city name" class="custom-input">
+    </div>
+    
     <tr class="table-header">
         <th>ID</th>
         <th>City</th>
@@ -19,4 +21,5 @@
             <a class="delete-link" (click)="alertToDelete( cityPost.id )">Delete</a>
         </td>
     </tr>
+    
 </table>

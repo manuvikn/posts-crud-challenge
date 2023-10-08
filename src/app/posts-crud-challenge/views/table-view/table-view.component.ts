@@ -79,7 +79,7 @@ export class TableViewComponent implements OnInit, OnDestroy {
 
     filterCityPostsByName(): void {
 
-        this.filteredCityPosts = this.arrCityPosts.filter(({title}) => title.toLowerCase().includes( this.filterCityPostValue.toLowerCase() ));
+        this.filteredCityPosts = this.arrCityPosts.filter(({title}) => title.toLowerCase().trim().includes( this.filterCityPostValue.toLowerCase().trim() ));
 
     }
 
