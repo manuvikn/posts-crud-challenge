@@ -41,7 +41,7 @@ export class CityPostsService {
 
     }
 
-    delteCityPostById( id: number ): Observable<void> {
+    deleteCityPostById( id: number ): Observable<void> {
 
         return this.http.delete<void>( `${environment.API_URL}posts/${id}` )
         .pipe(

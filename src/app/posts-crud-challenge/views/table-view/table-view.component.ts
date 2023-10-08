@@ -67,7 +67,7 @@ export class TableViewComponent implements OnInit, OnDestroy {
     deleteCityPost( id: number ): void {
 
         this.arrCityPosts.splice( this.arrCityPosts.findIndex(({id: cityId}) => cityId == id), 1 );
-        this.deleteCityPostSubscription = this.cityPostsService.delteCityPostById( id ).subscribe();
+        this.deleteCityPostSubscription = this.cityPostsService.deleteCityPostById( id ).subscribe();
 
     }
 
