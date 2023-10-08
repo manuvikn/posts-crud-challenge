@@ -96,6 +96,20 @@
 
 }
 
+.search-container {
+
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: flex-end;
+
+    .custom-input {
+
+        flex-grow: unset;
+        
+    }
+
+}
+
 .fade-in-animation {
 
     animation-duration: 0.5s;

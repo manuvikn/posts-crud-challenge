@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { Subscription } from "rxjs";
 import { CityPostsService } from "../../services/city-posts.service";
 import { CityPost } from "../../models/city-post";
@@ -12,7 +12,10 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class TableViewComponent implements OnInit, OnDestroy {
 
+
     arrCityPosts: Array<CityPost> = [];
+    filteredCityPosts: Array<CityPost> = [];
+    filterCityPostValue: string = '';
 
     cityPostsSubscription: Subscription | undefined;
     deleteCityPostSubscription: Subscription | undefined;
@@ -33,7 +36,10 @@ export class TableViewComponent implements OnInit, OnDestroy {
     loadDataTable(): void {
 
         this.cityPostsSubscription = this.cityPostsService.getCityPosts()
-            .subscribe(arr => this.arrCityPosts = arr);
+            .subscribe(arr => {
+                this.arrCityPosts = arr; 
+                this.filteredCityPosts = arr;
+            });
 
     }
 
@@ -68,6 +74,12 @@ export class TableViewComponent implements OnInit, OnDestroy {
 
         this.arrCityPosts.splice( this.arrCityPosts.findIndex(({id: cityId}) => cityId == id), 1 );
         this.deleteCityPostSubscription = this.cityPostsService.deleteCityPostById( id ).subscribe();
+
+    }
+
+    filterCityPostsByName(): void {
+
+        this.filteredCityPosts = this.arrCityPosts.filter(({title}) => title.toLowerCase().includes( this.filterCityPostValue.toLowerCase() ));
 
     }
 

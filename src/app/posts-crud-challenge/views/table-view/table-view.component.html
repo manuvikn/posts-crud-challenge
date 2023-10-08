@@ -1,3 +1,6 @@
+<div class="search-container">
+    <input (input)="filterCityPostsByName()" [(ngModel)]="filterCityPostValue" type="text" placeholder="Search by city name" class="custom-input">
+</div>
 <table class="data-table fade-in-animation">
     <tr class="table-header">
         <th>ID</th>
@@ -6,7 +9,7 @@
         <th>Update Date</th>
         <th>Actions</th>
     </tr>
-    <tr class="table-row" *ngFor="let cityPost of arrCityPosts; trackBy: trackByFn">
+    <tr class="table-row" *ngFor="let cityPost of filteredCityPosts; trackBy: trackByFn">
         <td>{{ cityPost.id }}</td>
         <td>{{ cityPost.title }}</td>
         <td>{{ cityPost.created_at | date: 'medium' }}</td>

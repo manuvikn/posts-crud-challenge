@@ -7,6 +7,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
         './posts-crud-challenge.component.scss', 
         './styles/variables.scss',
         './styles/responsive-styles.scss',
+        './styles/inputs.scss',
         './styles/scroll-bar.scss',
         './styles/prevent-bootstrap.scss',
         './styles/button.scss',
