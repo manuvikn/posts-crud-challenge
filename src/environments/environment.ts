@@ -1,3 +1,3 @@
 export const environment = {
-    API_URL: 'http://82.223.139.67:3000/api/v1/'
+    API_URL: 'https://82.223.139.67/api/city-sights/api/v1/'
 };
