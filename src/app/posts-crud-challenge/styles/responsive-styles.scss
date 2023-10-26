@@ -1,9 +1,9 @@
-::ng-deep .city-sights {
+::ng-deep {
 
     // Less font size in laptop screens
     @media (max-width: 1600px) {
 
-        body {
+        body.city-sights {
 
             font-size: 14px;
 
@@ -109,7 +109,7 @@
     @media (max-width: 700px) {
 
 
-        body {
+        body.city-sights {
 
             font-size: 12px;
 
