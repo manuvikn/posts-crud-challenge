@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { CityPostsService } from "./services/city-posts.service";
 
 @Component({
     selector: 'pcc-posts-crud-challenge',
@@ -12,7 +13,8 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
         './styles/prevent-bootstrap.scss',
         './styles/button.scss',
         './styles/alerts.scss'
-    ]
+    ],
+    providers: [ CityPostsService ]
 })
 export class PostsCrudChallengeComponent implements OnInit, OnDestroy {
 
