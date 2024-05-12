@@ -34,13 +34,13 @@ pipeline {
           if (currentBranch == 'master') {
             
             echo 'Deploying...'
-            def directoryPath = '/var/www/html/projects'
+            def directoryPath = '/var/www/pv1-site/projects'
             def directoryExists = fileExists(directoryPath)
 
             if (directoryExists) {
               sh "rm -rf ${directoryPath}/city-sights"
             }
-            sh 'mv dist/* /var/www/html/projects/'
+            sh 'mv dist/* /var/www/pv1-site/projects/'
             sh 'sudo service apache2 restart'
 
           } else {
